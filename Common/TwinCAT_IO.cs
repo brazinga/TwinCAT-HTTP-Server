@@ -361,28 +361,58 @@ namespace Common
         private object ReadObjectFromReader(AdsBinaryReader reader, string typeName)
         {
             object value = "";
-            if (typeName == "bool") value = reader.ReadBoolean();
-            else if (typeName == "byte") value = reader.ReadByte();
-            else if (typeName == "sint") value = reader.ReadInt16();
-            else if (typeName == "usint") value = reader.ReadUInt16();
-            else if (typeName == "int") value = reader.ReadInt32();
-            else if (typeName == "uint") value = reader.ReadUInt32();
-            else if (typeName == "dint") value = reader.ReadInt64();
-            else if (typeName == "udint") value = reader.ReadUInt64();
-            else if (typeName == "real") value = reader.ReadSingle();
-            else if (typeName == "lreal") value = reader.ReadDouble();
-            else if (typeName == "time") value = reader.ReadPlcTIME();
-            else if (typeName == "date") value = reader.ReadPlcDATE();
-            else if (typeName.StartsWith("string"))
+            switch (typeName)
             {
-                int length = typeName == "string" ? 80 : int.Parse(typeName.Substring(6));
-                value = reader.ReadPlcAnsiString(length);
-            }
+                case "bool":
+                    value = reader.ReadBoolean();
+                    break;
+                case "byte":
+                    value = reader.ReadByte();
+                    break;
+                case "sint":
+                    value = reader.ReadInt16();
+                    break;
+                case "usint":
+                    value = reader.ReadUInt16();
+                    break;
+                case "int":
+                    value = reader.ReadInt32();
+                    break;
+                case "uint":
+                    value = reader.ReadUInt32();
+                    break;
+                case "dint":
+                    value = reader.ReadInt64();
+                    break;
+                case "udint":
+                    value = reader.ReadUInt64();
+                    break;
+                case "real":
+                    value = reader.ReadSingle();
+                    break;
+                case "lreal":
+                    value = reader.ReadDouble();
+                    break;
+                case "time":
+                    value = reader.ReadPlcTIME();
+                    break;
+                case "date":
+                    value = reader.ReadPlcDATE();
+                    break;
+                default:
+                    if (typeName.StartsWith("string"))
+                    {
+                        int length = typeName == "string" ? 80 : int.Parse(typeName.Substring(6));
+                        value = reader.ReadPlcAnsiString(length);
+                    }
 
-            else
-            {
-                Send_TcClient_EventHandling(DateTime.Now, LogTextCategory.Error,
-                    string.Format("Can not read from AdsBinaryReader. Data type '{0}' not supported.", typeName));
+                    else
+                    {
+                        Send_TcClient_EventHandling(DateTime.Now, LogTextCategory.Error,
+                            string.Format("Can not read from AdsBinaryReader. Data type '{0}' not supported.", typeName));
+                    }
+
+                    break;
             }
             return value;
         }
@@ -394,28 +424,58 @@ namespace Common
         /// <param name="value"></param>
         private void WriteObjectToWriter(AdsBinaryWriter writer, string typeName, object value)
         {
-            if (typeName == "bool") writer.Write(bool.Parse(value.ToString()));
-            else if (typeName == "byte") writer.Write((byte)value);
-            else if (typeName == "sint") writer.Write(Int16.Parse(value.ToString()));
-            else if (typeName == "int") writer.Write(Int32.Parse(value.ToString()));
-            else if (typeName == "dint") writer.Write(Int64.Parse(value.ToString()));
-            else if (typeName == "usint") writer.Write(UInt16.Parse(value.ToString()));
-            else if (typeName == "uint") writer.Write(UInt32.Parse(value.ToString()));
-            else if (typeName == "udint") writer.Write(UInt64.Parse(value.ToString()));
-            else if (typeName == "real") writer.Write(float.Parse(value.ToString(), CultureInfo.InvariantCulture.NumberFormat));
-            else if (typeName == "lreal") writer.Write(Double.Parse(value.ToString(), CultureInfo.InvariantCulture.NumberFormat));
-            else if (typeName == "time") writer.WritePlcType(TimeSpan.Parse(value.ToString()));
-            else if (typeName == "date") writer.WritePlcType(DateTime.Parse(value.ToString()));
-            else if (typeName.StartsWith("string"))
+            switch (typeName)
             {
+                case "bool":
+                    writer.Write(bool.Parse(value.ToString()));
+                    break;
+                case "byte":
+                    writer.Write((byte)value);
+                    break;
+                case "sint":
+                    writer.Write(short.Parse(value.ToString()));
+                    break;
+                case "int":
+                    writer.Write(int.Parse(value.ToString()));
+                    break;
+                case "dint":
+                    writer.Write(long.Parse(value.ToString()));
+                    break;
+                case "usint":
+                    writer.Write(ushort.Parse(value.ToString()));
+                    break;
+                case "uint":
+                    writer.Write(uint.Parse(value.ToString()));
+                    break;
+                case "udint":
+                    writer.Write(ulong.Parse(value.ToString()));
+                    break;
+                case "real":
+                    writer.Write(float.Parse(value.ToString(), CultureInfo.InvariantCulture.NumberFormat));
+                    break;
+                case "lreal":
+                    writer.Write(double.Parse(value.ToString(), CultureInfo.InvariantCulture.NumberFormat));
+                    break;
+                case "time":
+                    writer.WritePlcType(TimeSpan.Parse(value.ToString()));
+                    break;
+                case "date":
+                    writer.WritePlcType(DateTime.Parse(value.ToString()));
+                    break;
+                default:
+                    if (typeName.StartsWith("string"))
+                    {
 
-                int length = typeName == "string" ? 80 : int.Parse(typeName.Substring(6));
-                writer.WritePlcAnsiString(value.ToString(), length);
-            }
-            else
-            {
-                Send_TcClient_EventHandling(DateTime.Now, LogTextCategory.Error,
-                   string.Format("Can not write to AdsBinaryReader. Data type '{0}' not supported", typeName));
+                        int length = typeName == "string" ? 80 : int.Parse(typeName.Substring(6));
+                        writer.WritePlcAnsiString(value.ToString(), length);
+                    }
+                    else
+                    {
+                        Send_TcClient_EventHandling(DateTime.Now, LogTextCategory.Error,
+                           string.Format("Can not write to AdsBinaryReader. Data type '{0}' not supported", typeName));
+                    }
+
+                    break;
             }
         }
 
