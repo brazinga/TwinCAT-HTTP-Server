@@ -27,7 +27,7 @@
                 <RowDefinition  />
             </Grid.RowDefinitions>
             <Rectangle Fill="#E4E4E4" Height="76" Margin="2,3,0,0" Stroke="Gray" VerticalAlignment="Top" Grid.Row="0"/>
-            <TextBlock x:Name="textBlock_titleTwinCATInput" HorizontalAlignment="Left" Height="17" Margin="8,10,0,0" TextWrapping="Wrap" Text="TwinCAT Host Info" VerticalAlignment="Top" Width="187" Foreground="DimGray"  Grid.Row="0"/>
+            <TextBlock x:Name="textBlock_titleTwinCATInput" HorizontalAlignment="Left" Height="17" Margin="8,10,0,0" TextWrapping="Wrap" Text="TwinCAT PLC Info - AMS and Port" VerticalAlignment="Top" Width="187" Foreground="DimGray"  Grid.Row="0"/>
             <TextBox x:Name="textBox_tcHostIn" Height="19" Margin="5,32,89,0" TextWrapping="Wrap" Text="192.168.137.1.1.1" VerticalAlignment="Top" Foreground="Gray" Grid.Row="0">
                 <TextBox.ToolTip>TwinCAT AmsNetId as specified in TwinCAT Project. Go to TwinCAT > Project > System > Routes.</TextBox.ToolTip>
             </TextBox>
@@ -41,7 +41,7 @@
                 <TextBox.ToolTip>Port number of the TwinCAT Instance to receive requests. Can be left at default if it wasn't explicitly changed inside TC3</TextBox.ToolTip>
             </TextBox>
             <Button x:Name="button_connectHttp" Click="Button_connectHttp_Click" Content="Start" Height="19" Margin="0,112,3,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="81" Grid.Row="0"/>
-            <TextBlock x:Name="textBlock_titleTwinCATInput_Copy" Height="17" Margin="8,90,0,0" TextWrapping="Wrap" Text="HTTP Server Info" VerticalAlignment="Top" Foreground="DimGray" HorizontalAlignment="Left" Width="174" Grid.Row="0"/>
+            <TextBlock x:Name="textBlock_titleTwinCATInput_Copy" Height="17" Margin="8,90,0,0" TextWrapping="Wrap" Text="HTTP Server Port" VerticalAlignment="Top" Foreground="DimGray" HorizontalAlignment="Left" Width="174" Grid.Row="0"/>
             <Separator Margin="5,0,5,0" Height="2" VerticalAlignment="Bottom" Background="LightGray" Grid.Row="3"/>
             <Separator Margin="5,0,5,5" Height="2" VerticalAlignment="Bottom" Background="LightGray" Grid.Row="0"/>
 
